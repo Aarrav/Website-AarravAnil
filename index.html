@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Aarrav Anil Portfolio</title>
@@ -11,156 +6,187 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* 1. HERO SECTION SPLIT LAYOUT */
+			.banner-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				max-width: 1200px;
+				width: 100%;
+				margin: 0 auto;
+				text-align: left; /* Overrides default center */
+				flex-wrap: wrap; /* Wraps on mobile */
+			}
+			.banner-content {
+				flex: 1;
+				padding-right: 20px;
+			}
+			.banner-image {
+				flex: 0 0 350px; /* Fixed width for image */
+				display: flex;
+				justify-content: center;
+			}
+			.banner-image img {
+				width: 300px;
+				height: 300px;
+				object-fit: cover;
+				border-radius: 50%; /* Makes it a circle */
+				border: 5px solid rgba(255,255,255,0.2);
+			}
+			
+			/* Mobile adjustments */
+			@media screen and (max-width: 736px) {
+				.banner-inner { flex-direction: column-reverse; text-align: center; }
+				.banner-content { padding-right: 0; }
+				.banner-image { margin-bottom: 20px; }
+			}
+
+			/* 2. TYPEWRITER ANIMATION */
+			.typing-text {
+				color: #ed4933; /* Orange accent color */
+				font-weight: bold;
+			}
+			.cursor {
+				display: inline-block;
+				width: 3px;
+				background-color: white;
+				animation: blink 1s infinite;
+			}
+			@keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+
+			/* 3. SLIDESHOW (HORIZONTAL SCROLL) */
+			.carousel-container {
+				display: flex;
+				overflow-x: auto;
+				gap: 20px;
+				padding: 40px 0;
+				scroll-behavior: smooth;
+				-ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+				scrollbar-width: none;  /* Hide scrollbar Firefox */
+			}
+			.carousel-container::-webkit-scrollbar { display: none; /* Hide scrollbar Chrome/Safari */ }
+			
+			.carousel-item {
+				min-width: 300px;
+				height: 400px;
+				position: relative;
+				border-radius: 10px;
+				overflow: hidden;
+				cursor: pointer;
+				transition: transform 0.3s;
+				flex-shrink: 0;
+			}
+			.carousel-item:hover { transform: scale(1.05); }
+			.carousel-item img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.carousel-overlay {
+				position: absolute;
+				bottom: 0;
+				background: rgba(0,0,0,0.7);
+				width: 100%;
+				padding: 15px;
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body class="landing is-preload">
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+		<div id="page-wrapper">
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="index.html">Spectral</a></h1>
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="generic.html">Generic</a></li>
-											<li><a href="elements.html">Elements</a></li>
-											<li><a href="#">Sign Up</a></li>
-											<li><a href="#">Log In</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
+			<header id="header" class="alt">
+				<h1><a href="index.html">Aarrav Anil</a></h1>
+				<nav id="nav">
+					<ul>
+						<li class="special">
+							<a href="#menu" class="menuToggle"><span>Menu</span></a>
+							<div id="menu">
+								<ul>
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#one">About Me</a></li>
+									<li><a href="#projects">Projects</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+			<section id="banner">
+				<div class="inner banner-inner">
+					<div class="banner-content">
+						<h2>Hi, I am Aarrav Anil</h2>
+						<p>I am <span class="typing-text"></span><span class="cursor">|</span></p>
+						<ul class="actions special" style="justify-content: flex-start;">
+							<li><a href="https://linkedin.com/in/aarravanil" target="_blank" class="button primary">Connect with me!</a></li>
+						</ul>
+					</div>
+					<div class="banner-image">
+						<img src="images/profile.jpg" alt="Aarrav Anil" />
+					</div>
+				</div>
+				<a href="#one" class="more scrolly">Learn More</a>
+			</section>
+
+			<section id="one" class="wrapper style2"> <section class="spotlight">
+					<div class="image"><img src="images/about-me.jpg" alt="About Aarrav" /></div>
+					<div class="content">
+						<h2>About Me</h2>
+						<p>I am a passionate engineering student focused on building robots that solve real-world problems. With a background in Mechatronics, I love combining hardware and software to create autonomous systems.</p>
+						<p>When I am not coding, I am traveling the world and exploring new cultures.</p>
+					</div>
+				</section>
+			</section>
+
+			<section id="projects" class="wrapper style3 special">
+				<div class="inner">
+					<header class="major">
+						<h2>My Projects & Achievements</h2>
+						<p>Swipe to see what I've been working on.</p>
 					</header>
-
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<h2>Aarrav Anil</h2>
-							<p>Aspiring Robotics Engineer<br />
-							Passionate about Mechatronics and Robotics<br />
-							</p>
-							<ul class="actions special">
-								<li><a href="#" class="button primary">Activate</a></li>
-							</ul>
-						</div>
-						<a href="#one" class="more scrolly">Learn More</a>
-					</section>
-
-				<!-- One -->
-					<section id="one" class="wrapper style1 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Arcu aliquet vel lobortis ata nisl<br />
-								eget augue amet aliquet nisl cep donec</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
-							</header>
-							<ul class="icons major">
-								<li><span class="icon fa-gem major style1"><span class="label">Lorem</span></span></li>
-								<li><span class="icon fa-heart major style2"><span class="label">Ipsum</span></span></li>
-								<li><span class="icon solid fa-code major style3"><span class="label">Dolor</span></span></li>
-							</ul>
-						</div>
-					</section>
-
-				<!-- Two -->
-					<section id="two" class="wrapper alt style2">
-						<section class="spotlight">
-							<div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-								<h2>Magna primis lobortis<br />
-								sed ullamcorper</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+					
+					<div class="carousel-container">
+						
+						<div class="carousel-item" onclick="window.location.href='generic.html#robot'">
+							<img src="images/pic01.jpg" alt="Robot Project">
+							<div class="carousel-overlay">
+								<h3>Line Follower Robot</h3>
 							</div>
-						</section>
-						<section class="spotlight">
-							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
-								<h2>Tortor dolore feugiat<br />
-								elementum magna</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section>
-						<section class="spotlight">
-							<div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-								<h2>Augue eleifend aliquet<br />
-								sed condimentum</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section>
-					</section>
-
-				<!-- Three -->
-					<section id="three" class="wrapper style3 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Accumsan mus tortor nunc aliquet</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
-							</header>
-							<ul class="features">
-								<li class="icon fa-paper-plane">
-									<h3>Arcu accumsan</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-laptop">
-									<h3>Ac Augue Eget</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-code">
-									<h3>Mus Scelerisque</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-headphones-alt">
-									<h3>Mauris Imperdiet</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-heart">
-									<h3>Aenean Primis</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-flag">
-									<h3>Tortor Ut</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-							</ul>
 						</div>
-					</section>
 
-				<!-- CTA -->
-					<section id="cta" class="wrapper style4">
-						<div class="inner">
-							<header>
-								<h2>Arcue ut vel commodo</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.</p>
-							</header>
-							<ul class="actions stacked">
-								<li><a href="#" class="button fit primary">Activate</a></li>
-								<li><a href="#" class="button fit">Learn More</a></li>
-							</ul>
+						<div class="carousel-item" onclick="window.location.href='generic.html#drone'">
+							<img src="images/pic02.jpg" alt="Drone Project">
+							<div class="carousel-overlay">
+								<h3>Autonomous Drone</h3>
+							</div>
 						</div>
-					</section>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</footer>
+						<div class="carousel-item" onclick="window.location.href='generic.html#code'">
+							<img src="images/pic03.jpg" alt="Coding Project">
+							<div class="carousel-overlay">
+								<h3>Python AI Model</h3>
+							</div>
+						</div>
 
-			</div>
+						</div>
+				</div>
+			</section>
 
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Aarrav Anil</li>
+				</ul>
+			</footer>
+
+		</div>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -169,6 +195,46 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				const textElement = document.querySelector(".typing-text");
+				const roles = [
+					"a Student.", 
+					"an Aspiring Robotics Engineer.", 
+					"a Traveller.", 
+					"a Mechatronics Developer.", 
+					"an Innovator."
+				];
+				
+				let roleIndex = 0;
+				let charIndex = 0;
+				let isDeleting = false;
+
+				function typeEffect() {
+					const currentRole = roles[roleIndex];
+					
+					if (isDeleting) {
+						textElement.textContent = currentRole.substring(0, charIndex--);
+					} else {
+						textElement.textContent = currentRole.substring(0, charIndex++);
+					}
+
+					let typeSpeed = isDeleting ? 50 : 100;
+
+					if (!isDeleting && charIndex === currentRole.length) {
+						typeSpeed = 2000; // Pause at end of word
+						isDeleting = true;
+					} else if (isDeleting && charIndex === 0) {
+						isDeleting = false;
+						roleIndex = (roleIndex + 1) % roles.length;
+						typeSpeed = 500; // Pause before new word
+					}
+
+					setTimeout(typeEffect, typeSpeed);
+				}
+
+				// Start the animation
+				document.addEventListener('DOMContentLoaded', typeEffect);
+			</script>
 
 	</body>
 </html>
