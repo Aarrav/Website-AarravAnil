@@ -1,240 +1,572 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Aarrav Anil Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<style>
-			/* 1. HERO SECTION SPLIT LAYOUT */
-			.banner-inner {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				max-width: 1200px;
-				width: 100%;
-				margin: 0 auto;
-				text-align: left; /* Overrides default center */
-				flex-wrap: wrap; /* Wraps on mobile */
-			}
-			.banner-content {
-				flex: 1;
-				padding-right: 20px;
-			}
-			.banner-image {
-				flex: 0 0 350px; /* Fixed width for image */
-				display: flex;
-				justify-content: center;
-			}
-			.banner-image img {
-				width: 300px;
-				height: 300px;
-				object-fit: cover;
-				border-radius: 50%; /* Makes it a circle */
-				border: 5px solid rgba(255,255,255,0.2);
-			}
-			
-			/* Mobile adjustments */
-			@media screen and (max-width: 736px) {
-				.banner-inner { flex-direction: column-reverse; text-align: center; }
-				.banner-content { padding-right: 0; }
-				.banner-image { margin-bottom: 20px; }
-			}
+    <head>
+        <title>Aarrav Anil Portfolio</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <style>
+            /* --- GLOBAL OVERRIDES --- */
+            h1, h2, h3, h4, h5, h6, .button {
+                text-transform: none !important;
+                letter-spacing: normal !important;
+            }
 
-			/* 2. TYPEWRITER ANIMATION */
-			.typing-text {
-				color: #ed4933; /* Orange accent color */
-				font-weight: bold;
-			}
-			.cursor {
-				display: inline-block;
-				width: 3px;
-				background-color: white;
-				animation: blink 1s infinite;
-			}
-			@keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+            /* --- 1. HERO SECTION --- */
+            .banner-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 1200px;
+                width: 100%;
+                margin: 0 auto;
+                text-align: left;
+                flex-wrap: wrap;
+            }
+            .banner-content {
+                flex: 1;
+                padding-right: 40px;
+            }
+            .banner-content h2 {
+                font-size: 3.2rem !important;
+                line-height: 1.3;
+                margin-bottom: 20px;
+            }
+            .banner-content p {
+                font-size: 1.5rem !important;
+                line-height: 2;
+            }
 
-			/* 3. SLIDESHOW (HORIZONTAL SCROLL) */
-			.carousel-container {
-				display: flex;
-				overflow-x: auto;
-				gap: 20px;
-				padding: 40px 0;
-				scroll-behavior: smooth;
-				-ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
-				scrollbar-width: none;  /* Hide scrollbar Firefox */
-			}
-			.carousel-container::-webkit-scrollbar { display: none; /* Hide scrollbar Chrome/Safari */ }
-			
-			.carousel-item {
-				min-width: 300px;
-				height: 400px;
-				position: relative;
-				border-radius: 10px;
-				overflow: hidden;
-				cursor: pointer;
-				transition: transform 0.3s;
-				flex-shrink: 0;
-			}
-			.carousel-item:hover { transform: scale(1.05); }
-			.carousel-item img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-			.carousel-overlay {
-				position: absolute;
-				bottom: 0;
-				background: rgba(0,0,0,0.7);
-				width: 100%;
-				padding: 15px;
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body class="landing is-preload">
+            /* BIGGER CONNECT BUTTON */
+            .banner-content .button.primary {
+                font-size: 1.1rem !important;  
+                padding: 0 2.5em !important;   
+                height: 3.5em !important;      
+                line-height: 3.5em !important; 
+                font-weight: 700;
+                box-shadow: 0 4px 15px rgba(237, 73, 51, 0.4); 
+            }
 
-		<div id="page-wrapper">
+            .banner-image {
+                flex: 0 0 450px;
+                display: flex;
+                justify-content: center;
+            }
+            .banner-image img {
+                width: 100%;
+                max-width: 350px;
+                height: auto;
+                object-fit: contain; 
+                border-radius: 20px; 
+                border: 5px solid rgba(255,255,255,0.2);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            
+            @media screen and (max-width: 736px) {
+                .banner-inner { flex-direction: column-reverse; text-align: center; }
+                .banner-content { padding-right: 0; }
+                .banner-image { margin-bottom: 20px; flex: 0 0 auto; }
+                .banner-content h2 { font-size: 2.5rem !important; }
+            }
 
-			<header id="header" class="alt">
-				<h1><a href="index.html">Aarrav Anil</a></h1>
-				<nav id="nav">
-					<ul>
-						<li class="special">
-							<a href="#menu" class="menuToggle"><span>Menu</span></a>
-							<div id="menu">
-								<ul>
-									<li><a href="index.html">Home</a></li>
-									<li><a href="#one">About Me</a></li>
-									<li><a href="#projects">Projects</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</nav>
-			</header>
+            /* --- CIRCULAR IMAGE --- */
+            .spotlight .image img {
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                width: 300px;
+                height: 300px;
+                border: 4px solid #515151;
+                display: block;
+                margin: 0 auto;
+            }
 
-			<section id="banner">
-				<div class="inner banner-inner">
-					<div class="banner-content">
-						<h2>Hi, I am Aarrav Anil</h2>
-						<p>I am <span class="typing-text"></span><span class="cursor">|</span></p>
-						<ul class="actions special" style="justify-content: flex-start;">
-							<li><a href="https://linkedin.com/in/aarravanil" target="_blank" class="button primary">Connect with me!</a></li>
-						</ul>
-					</div>
-					<div class="banner-image">
-						<img src="images/profile.jpg" alt="Aarrav Anil" />
-					</div>
-				</div>
-				<a href="#one" class="more scrolly">Learn More</a>
-			</section>
+            /* --- TYPING ANIMATION --- */
+            .typing-text { color: #ed4933; font-weight: bold; }
+            .cursor { display: inline-block; width: 3px; background-color: white; animation: blink 1s infinite; }
+            @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-			<section id="one" class="wrapper style2"> <section class="spotlight">
-					<div class="image"><img src="images/about-me.jpg" alt="About Aarrav" /></div>
-					<div class="content">
-						<h2>About Me</h2>
-						<p>I am a passionate engineering student focused on building robots that solve real-world problems. With a background in Mechatronics, I love combining hardware and software to create autonomous systems.</p>
-						<p>When I am not coding, I am traveling the world and exploring new cultures.</p>
-					</div>
-				</section>
-			</section>
+            /* --- CAROUSEL & GRID (PROJECTS & EXPERIENCE) --- */
+            .carousel-container {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding: 20px 0;
+                scroll-behavior: smooth;
+                scrollbar-width: none;
+            }
+            .carousel-container::-webkit-scrollbar { display: none; }
+            
+            /* FIXED WIDTH & HEIGHT TO PREVENT "TOO WIDE" LOOK */
+            .carousel-item, .grid-item {
+                width: 350px; /* Fixed width: not too wide */
+                height: 240px; /* Reduced height: rectangular card shape */
+                position: relative;
+                border-radius: 10px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.3s;
+                flex-shrink: 0;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+            .carousel-item:hover, .grid-item:hover { transform: scale(1.05); }
+            
+            .carousel-item img, .grid-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Ensures image covers area without distortion */
+            }
+            .carousel-overlay {
+                position: absolute;
+                bottom: 0;
+                background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+                width: 100%;
+                padding: 15px;
+                text-align: center;
+            }
+            .carousel-overlay h3 {
+                font-size: 1.1rem;
+                margin-bottom: 5px;
+            }
+            .carousel-overlay p {
+                font-size: 0.9rem;
+                margin: 0;
+            }
 
-			<section id="projects" class="wrapper style3 special">
-				<div class="inner">
-					<header class="major">
-						<h2>My Projects & Achievements</h2>
-						<p>Swipe to see what I've been working on.</p>
-					</header>
-					
-					<div class="carousel-container">
-						
-						<div class="carousel-item" onclick="window.location.href='generic.html#robot'">
-							<img src="images/pic01.jpg" alt="Robot Project">
-							<div class="carousel-overlay">
-								<h3>Line Follower Robot</h3>
-							</div>
-						</div>
+            /* --- EDUCATION CARDS --- */
+            .edu-card {
+                width: 250px;
+                height: 250px; 
+                background-color: #fff; 
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 0.3s, box-shadow 0.3s;
+                overflow: hidden;
+                padding: 20px;
+                border: 1px solid rgba(255,255,255,0.1); 
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+            .edu-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(237, 73, 51, 0.2); 
+            }
+            .edu-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; 
+            }
 
-						<div class="carousel-item" onclick="window.location.href='generic.html#drone'">
-							<img src="images/pic02.jpg" alt="Drone Project">
-							<div class="carousel-overlay">
-								<h3>Autonomous Drone</h3>
-							</div>
-						</div>
+            /* --- IMPROVED MODAL STYLES --- */
+            .modal {
+                display: none; 
+                position: fixed; 
+                z-index: 10000; 
+                left: 0;
+                top: 0;
+                width: 100%; 
+                height: 100%; 
+                overflow: auto; 
+                background-color: rgba(0,0,0,0.85); 
+                backdrop-filter: blur(8px);
+            }
+            .modal-content {
+                background-color: #1e252b; 
+                margin: 5% auto; 
+                padding: 0; 
+                border: 1px solid #333;
+                width: 90%;
+                max-width: 650px;
+                border-radius: 12px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+                position: relative;
+                text-align: left;
+                animation: slideDown 0.4s ease;
+            }
+            @keyframes slideDown { from {opacity: 0; transform: translateY(-50px);} to {opacity: 1; transform: translateY(0);} }
 
-						<div class="carousel-item" onclick="window.location.href='generic.html#code'">
-							<img src="images/pic03.jpg" alt="Coding Project">
-							<div class="carousel-overlay">
-								<h3>Python AI Model</h3>
-							</div>
-						</div>
+            .modal-header {
+                background: rgba(255,255,255,0.03);
+                padding: 20px 30px;
+                border-bottom: 1px solid #333;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .modal-header h2 {
+                margin: 0;
+                color: #ffffff;
+                font-size: 1.5rem;
+            }
+            .modal-body {
+                padding: 30px;
+            }
+            .modal-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                padding-bottom: 10px;
+            }
+            .modal-label { color: #aaa; font-weight: 600; }
+            .modal-value { color: #fff; font-weight: 400; text-align: right; }
+            .modal-desc { margin-top: 20px; color: #ccc; line-height: 1.6; }
+            
+            /* Bullet points in modal */
+            .modal-desc ul {
+                list-style-type: disc;
+                padding-left: 20px;
+                margin-top: 10px;
+            }
+            .modal-desc li {
+                margin-bottom: 10px;
+                color: #ddd;
+            }
 
-						</div>
-				</div>
-			</section>
+            .close-btn {
+                color: #888;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .close-btn:hover { color: #ed4933; }
 
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>&copy; Aarrav Anil</li>
-				</ul>
-			</footer>
+            /* Grid container */
+            .flex-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+            }
 
-		</div>
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script>
-				const textElement = document.querySelector(".typing-text");
-				const roles = [
-					"a Student.", 
-					"an Aspiring Robotics Engineer.", 
-					"a Traveller.", 
-					"a Mechatronics Developer.", 
-					"an Innovator."
-				];
-				
-				let roleIndex = 0;
-				let charIndex = 0;
-				let isDeleting = false;
+        </style>
+    </head>
+    <body class="landing is-preload">
 
-				function typeEffect() {
-					const currentRole = roles[roleIndex];
-					
-					if (isDeleting) {
-						textElement.textContent = currentRole.substring(0, charIndex--);
-					} else {
-						textElement.textContent = currentRole.substring(0, charIndex++);
-					}
+        <div id="page-wrapper">
 
-					let typeSpeed = isDeleting ? 50 : 100;
+            <header id="header" class="alt">
+                <h1><a href="index.html">Aarrav Anil</a></h1>
+                <nav id="nav">
+                    <ul>
+                        <li class="special">
+                            <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                            <div id="menu">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="#about">About Me</a></li>
+                                    <li><a href="#education">Education</a></li>
+                                    <li><a href="#experience">Experience</a></li>
+                                    <li><a href="#projects">Projects</a></li>
+                                    <li><a href="#achievements">Achievements</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
 
-					if (!isDeleting && charIndex === currentRole.length) {
-						typeSpeed = 2000; // Pause at end of word
-						isDeleting = true;
-					} else if (isDeleting && charIndex === 0) {
-						isDeleting = false;
-						roleIndex = (roleIndex + 1) % roles.length;
-						typeSpeed = 500; // Pause before new word
-					}
+            <section id="banner">
+                <div class="inner banner-inner">
+                    <div class="banner-content">
+                        <h2>Hi, I am Aarrav Anil</h2>
+                        <p>I am <span class="typing-text"></span><span class="cursor">|</span></p>
+                        <ul class="actions special" style="justify-content: flex-start;">
+                            <li><a href="https://linkedin.com/in/aarravanil" target="_blank" class="button primary">Connect with me!</a></li>
+                        </ul>
+                    </div>
+                    <div class="banner-image">
+                        <img src="images/profile.jpg" alt="Aarrav Anil" />
+                    </div>
+                </div>
+                <a href="#about" class="more scrolly">Explore My Work</a>
+            </section>
 
-					setTimeout(typeEffect, typeSpeed);
-				}
+            <section id="about" class="wrapper style1">
+                <section class="spotlight">
+                    <div class="image">
+                        <img src="images/about-me.jpg" alt="About Aarrav" />
+                    </div>
+                    <div class="content">
+                        <h2>About Me</h2>
+                        <p>Aspiring Robotics Engineer with extensive experience in STEM and
+                            robotics, specializing in automation, control systems and intelligent
+                            electromechanical designs. An international award winner in robotics
+                            competitions, passionate about engineering, innovation, and creating real
+                            world and impactful solutions. Interested in research and development in
+                            the field of Mechatronics, Robotics and Control Systems.</p>
+                        <p>When I am not building robots, I am traveling the world and exploring new countries.</p>
+                    </div>
+                </section>
+            </section>
 
-				// Start the animation
-				document.addEventListener('DOMContentLoaded', typeEffect);
-			</script>
+            <section id="education" class="wrapper style2 special">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Education</h2>
+                    </header>
+                    <div class="flex-grid">
+                        
+                        <div class="edu-card" onclick="openModal('modal-edu1')">
+                            <img src="images/uni_tue.png" alt="TU Eindhoven">
+                        </div>
 
-	</body>
+                        <div class="edu-card" onclick="openModal('modal-edu2')">
+                            <img src="images/uni_taltech.png" alt="TalTech">
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="wrapper style3 special">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Experience</h2>
+                    </header>
+                    <div class="flex-grid">
+                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                            <img src="images/Tech_united_humanoid_rome.jpg" alt="Robotics Student Engineer">
+                            <div class="carousel-overlay">
+                                <h3>Robotics Student Engineer</h3>
+                                <p>Click to read more</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                            <img src="images/Smart spoon.jpg" alt="Medical Device Product Developer">
+                            <div class="carousel-overlay">
+                                <h3>Medical Device Product Developer</h3>
+                                <p>Click to read more</p>
+                            </div>
+                        </div>
+
+                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                            <img src="images/robolectro.png" alt="Co-founder">
+                            <div class="carousel-overlay">
+                                <h3>Co-founder & Mentor</h3>
+                                <p>Click to read more</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="wrapper style1 special">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Projects</h2>
+                        <p>Swipe to see my technical work.</p>
+                    </header>
+                    
+                    <div class="carousel-container">
+                        <div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/robot arm.jpg" alt="Robot arm Project">
+                            <div class="carousel-overlay">
+                                <h3>5 DoF Surgical Robot (In progress)</h3>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/ML_robot.jpg" alt="ML robot">
+                            <div class="carousel-overlay">
+                                <h3>ML based rescue robot</h3>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/pic03.jpg" alt="Balacing robot">
+                            <div class="carousel-overlay">
+                                <h3>2 wheeled balancing robot</h3>
+                            </div>
+                        </div>
+
+						<div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/ML_robot.jpg" alt="Venus">
+                            <div class="carousel-overlay">
+                                <h3>Object Detection system for Venus rover</h3>
+                            </div>
+                        </div>
+
+						<div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/ML_robot.jpg" alt="FESS">
+                            <div class="carousel-overlay">
+                                <h3>Flywheel Energy Storage System (FESS)</h3>
+                            </div>
+                        </div>
+
+						<div class="carousel-item" onclick="window.location.href='projects.html'">
+                            <img src="images/ML_robot.jpg" alt="CNC">
+                            <div class="carousel-overlay">
+                                <h3>CNC drawing and rangoli machine</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="achievements" class="wrapper style2 special">
+                <div class="inner">
+                    <header class="major">
+                        <h2>Achievements & Recognition</h2>
+                        <p>Awards and certificates.</p>
+                    </header>
+                    <div class="flex-grid">
+                        <div class="grid-item" onclick="openModal('modal-ach1')">
+                            <img src="images/award.jpg" alt="Award Name">
+                            <div class="carousel-overlay">
+                                <h3>National Robotics Winner</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer id="footer">
+                <ul class="icons">
+                    <li><a href="https://linkedin.com/in/aarravanil" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                    <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Aarrav Anil</li>
+                </ul>
+            </footer>
+
+        </div>
+
+        <div id="modal-edu1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Eindhoven University of Technology</h2>
+                    <span class="close-btn" onclick="closeModal('modal-edu1')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-row">
+                        <span class="modal-label">Degree</span>
+                        <span class="modal-value">B.Sc Electrical Engineering</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Duration</span>
+                        <span class="modal-value">Sep 2024 - Jul 2027</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Current GPA</span>
+                        <span class="modal-value" style="color: #ffffff; font-weight: bold;">9.1 / 10</span>
+                    </div>
+                    <div class="modal-desc">
+                        <p><strong>Highlights:</strong> Honors in High Tech Systems. Active member of the Tech United student team specializing in Mechatronics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-edu2" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tallinn University of Technology</h2>
+                    <span class="close-btn" onclick="closeModal('modal-edu2')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-row">
+                        <span class="modal-label">Course</span>
+                        <span class="modal-value">Erasmus Collider Program</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Duration</span>
+                        <span class="modal-value">Jan 2025 - Feb 2025</span>
+                    </div>
+                    <div class="modal-desc">
+                        <ul>
+                            <li>Designed and built a Raspberry Pi + YOLO system based on a computer vision ML model to evaluate the quality of road lane markings, resulting in 30% reduction of labor cost and 55% quicker compared to traditional manual methods.</li>
+                            <li>Led a multidisciplinary, international team to develop the full solution from concept to presentation.</li>
+                            <li>Pitched the working prototype to academic and industry professionals receiving constructive feedback.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-ach1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>National Robotics Competition</h2>
+                    <span class="close-btn" onclick="closeModal('modal-ach1')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Awarded 1st place among 50 teams for creating the fastest autonomous maze-solving robot.</p>
+                    <p style="margin-top:10px; color:#aaa;"><strong>Date:</strong> November 2024</p>
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+        
+        <script>
+            // --- TYPING EFFECT ---
+            const textElement = document.querySelector(".typing-text");
+            const roles = [
+                "an Aspiring Robotics Engineer.", 
+                "a Student.", 
+                "a Mechatronics Engineer in the making.", 
+                "an Innovator.",
+                "a Maker.",
+                "a Traveller."
+            ];
+            
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function typeEffect() {
+                const currentRole = roles[roleIndex];
+                if (isDeleting) {
+                    textElement.textContent = currentRole.substring(0, charIndex--);
+                } else {
+                    textElement.textContent = currentRole.substring(0, charIndex++);
+                }
+
+                let typeSpeed = isDeleting ? 50 : 100;
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    typeSpeed = 2500; 
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typeSpeed = 500; 
+                }
+                setTimeout(typeEffect, typeSpeed);
+            }
+            document.addEventListener('DOMContentLoaded', typeEffect);
+
+            // --- MODAL FUNCTIONS ---
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = "block";
+            }
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = "none";
+            }
+            
+            // Close modal if user clicks outside the box
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = "none";
+                }
+            }
+        </script>
+
+    </body>
 </html>
