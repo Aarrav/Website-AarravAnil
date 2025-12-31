@@ -1069,10 +1069,10 @@
                     textElement.textContent = currentRole.substring(0, charIndex++);
                 }
 
-                let typeSpeed = isDeleting ? 50 : 100;
+                let typeSpeed = isDeleting ? 25 : 65;
 
                 if (!isDeleting && charIndex === currentRole.length) {
-                    typeSpeed = 2500; 
+                    typeSpeed = 1500; 
                     isDeleting = true;
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
