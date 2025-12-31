@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="assets/css/main.css" />
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
         <style>
             /* --- GLOBAL OVERRIDES --- */
             h1, h2, h3, h4, h5, h6, .button {
@@ -38,7 +40,6 @@
                 line-height: 2;
             }
 
-            /* BIGGER CONNECT BUTTON */
             .banner-content .button.primary {
                 font-size: 1.1rem !important;  
                 padding: 0 2.5em !important;   
@@ -87,36 +88,41 @@
             .cursor { display: inline-block; width: 3px; background-color: white; animation: blink 1s infinite; }
             @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-            /* --- CAROUSEL & GRID (PROJECTS & EXPERIENCE) --- */
-            .carousel-container {
-                display: flex;
-                overflow-x: auto;
-                gap: 20px;
+            /* --- PROJECTS GRID (UPDATED) --- */
+            /* Changed from .carousel-container to a grid layout */
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Auto columns, min width 320px */
+                gap: 30px;
                 padding: 20px 0;
-                scroll-behavior: smooth;
-                scrollbar-width: none;
+                justify-content: center;
             }
-            .carousel-container::-webkit-scrollbar { display: none; }
             
-            /* FIXED WIDTH & HEIGHT TO PREVENT "TOO WIDE" LOOK */
-            .carousel-item, .grid-item {
-                width: 350px; /* Fixed width: not too wide */
-                height: 240px; /* Reduced height: rectangular card shape */
-                position: relative;
-                border-radius: 10px;
-                overflow: hidden;
-                cursor: pointer;
-                transition: transform 0.3s;
-                flex-shrink: 0;
-                margin-bottom: 20px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            }
-            .carousel-item:hover, .grid-item:hover { transform: scale(1.05); }
+            /* --- RESTORED FIXED SIZE FOR EXPERIENCE & ACHIEVEMENTS --- */
+			.grid-item {
+				width: 350px;  /* Changed back to fixed width */
+				height: 240px;
+				position: relative;
+				border-radius: 10px;
+				overflow: hidden;
+				cursor: pointer;
+				transition: transform 0.3s;
+				flex-shrink: 0;
+				margin-bottom: 20px;
+				box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+			}
+
+			/* --- SPECIFIC OVERRIDE FOR PROJECTS GRID ONLY --- */
+			/* This ensures projects still fill their grid cells nicely */
+			.projects-grid .grid-item {
+				width: 100%;
+			}
+            .grid-item:hover { transform: scale(1.05); }
             
-            .carousel-item img, .grid-item img {
+            .grid-item img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover; /* Ensures image covers area without distortion */
+                object-fit: cover; 
             }
             .carousel-overlay {
                 position: absolute;
@@ -126,14 +132,8 @@
                 padding: 15px;
                 text-align: center;
             }
-            .carousel-overlay h3 {
-                font-size: 1.1rem;
-                margin-bottom: 5px;
-            }
-            .carousel-overlay p {
-                font-size: 0.9rem;
-                margin: 0;
-            }
+            .carousel-overlay h3 { font-size: 1.1rem; margin-bottom: 5px; }
+            .carousel-overlay p { font-size: 0.9rem; margin: 0; }
 
             /* --- EDUCATION CARDS --- */
             .edu-card {
@@ -155,13 +155,9 @@
                 transform: translateY(-5px);
                 box-shadow: 0 10px 20px rgba(237, 73, 51, 0.2); 
             }
-            .edu-card img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain; 
-            }
+            .edu-card img { width: 100%; height: 100%; object-fit: contain; }
 
-            /* --- IMPROVED MODAL STYLES --- */
+            /* --- MODAL STYLES --- */
             .modal {
                 display: none; 
                 position: fixed; 
@@ -176,16 +172,18 @@
             }
             .modal-content {
                 background-color: #1e252b; 
-                margin: 5% auto; 
+                margin: 2% auto; /* Less margin top */
                 padding: 0; 
                 border: 1px solid #333;
                 width: 90%;
-                max-width: 650px;
+                max-width: 850px; /* Wider to accommodate slideshow */
                 border-radius: 12px;
                 box-shadow: 0 20px 50px rgba(0,0,0,0.7);
                 position: relative;
                 text-align: left;
                 animation: slideDown 0.4s ease;
+                max-height: 95vh;
+                overflow-y: auto; /* Scroll if content is too tall */
             }
             @keyframes slideDown { from {opacity: 0; transform: translateY(-50px);} to {opacity: 1; transform: translateY(0);} }
 
@@ -196,15 +194,14 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                backdrop-filter: blur(10px);
             }
-            .modal-header h2 {
-                margin: 0;
-                color: #ffffff;
-                font-size: 1.5rem;
-            }
-            .modal-body {
-                padding: 30px;
-            }
+            .modal-header h2 { margin: 0; color: #ffffff; font-size: 1.5rem; }
+            .modal-body { padding: 30px; }
+            
             .modal-row {
                 display: flex;
                 justify-content: space-between;
@@ -215,17 +212,109 @@
             .modal-label { color: #aaa; font-weight: 600; }
             .modal-value { color: #fff; font-weight: 400; text-align: right; }
             .modal-desc { margin-top: 20px; color: #ccc; line-height: 1.6; }
+            .modal-desc ul { list-style-type: disc; padding-left: 20px; margin-top: 10px; }
+            .modal-desc li { margin-bottom: 10px; color: #ddd; }
+
+            /* SPLIT VIEW (Text Left, Slideshow Right) */
+            .modal-split {
+                display: flex;
+                gap: 30px;
+                align-items: flex-start;
+            }
+            .modal-split-text { flex: 1.2; }
+            .modal-split-img { flex: 1; position: relative; }
+
+            @media screen and (max-width: 768px) {
+                .modal-split { flex-direction: column-reverse; }
+                .modal-split-img { width: 100%; margin-bottom: 20px; }
+            }
+
+            /* --- SLIDESHOW STYLES --- */
+            .slideshow-container {
+                max-width: 100%;
+                position: relative;
+                margin: auto;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 2px solid #ed4933;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                aspect-ratio: 4/3; /* Enforce standard ratio */
+                background: #000;
+            }
             
-            /* Bullet points in modal */
-            .modal-desc ul {
-                list-style-type: disc;
-                padding-left: 20px;
-                margin-top: 10px;
+            .mySlides {
+                display: none;
+                width: 100%;
+                height: 100%;
             }
-            .modal-desc li {
-                margin-bottom: 10px;
-                color: #ddd;
+            
+            .mySlides img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                animation: fade 1.5s;
             }
+
+            /* Fading animation */
+            @keyframes fade {
+                from {opacity: .4} 
+                to {opacity: 1}
+            }
+
+            /* Next & previous buttons */
+            .prev, .next {
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                width: auto;
+                margin-top: -22px;
+                padding: 16px;
+                color: white;
+                font-weight: bold;
+                font-size: 18px;
+                transition: 0.6s ease;
+                border-radius: 0 3px 3px 0;
+                user-select: none;
+                background-color: rgba(0,0,0,0.3);
+            }
+            .next { right: 0; border-radius: 3px 0 0 3px; }
+            .prev:hover, .next:hover { background-color: rgba(237, 73, 51, 0.8); }
+
+            /* --- RESOURCE CARDS ("Glimpse" Buttons) --- */
+            .resource-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .resource-card {
+                display: flex;
+                align-items: center;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 8px;
+                padding: 10px;
+                text-decoration: none;
+                transition: all 0.3s;
+                color: #fff !important;
+            }
+
+            .resource-card:hover {
+                background: rgba(237, 73, 51, 0.1);
+                border-color: #ed4933;
+                transform: translateY(-2px);
+            }
+
+            .resource-icon {
+                font-size: 1.8rem;
+                margin-right: 15px;
+                color: #ed4933;
+            }
+
+            .resource-info { display: flex; flex-direction: column; }
+            .resource-title { font-size: 0.9rem; font-weight: bold; line-height: 1.2; }
+            .resource-type { font-size: 0.75rem; color: #aaa; margin-top: 2px; }
 
             .close-btn {
                 color: #888;
@@ -236,13 +325,7 @@
             }
             .close-btn:hover { color: #ed4933; }
 
-            /* Grid container */
-            .flex-grid {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 30px;
-            }
+            .flex-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
 
         </style>
     </head>
@@ -311,15 +394,12 @@
                         <h2>Education</h2>
                     </header>
                     <div class="flex-grid">
-                        
                         <div class="edu-card" onclick="openModal('modal-edu1')">
                             <img src="images/uni_tue.png" alt="TU Eindhoven">
                         </div>
-
                         <div class="edu-card" onclick="openModal('modal-edu2')">
                             <img src="images/uni_taltech.png" alt="TalTech">
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -330,7 +410,8 @@
                         <h2>Experience</h2>
                     </header>
                     <div class="flex-grid">
-                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                        
+                        <div class="grid-item" onclick="openModal('modal-exp1')">
                             <img src="images/Tech_united_humanoid_rome.jpg" alt="Robotics Student Engineer">
                             <div class="carousel-overlay">
                                 <h3>Robotics Student Engineer</h3>
@@ -338,7 +419,7 @@
                             </div>
                         </div>
                         
-                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                        <div class="grid-item" onclick="openModal('modal-exp2')">
                             <img src="images/Smart spoon.jpg" alt="Medical Device Product Developer">
                             <div class="carousel-overlay">
                                 <h3>Medical Device Product Developer</h3>
@@ -346,13 +427,14 @@
                             </div>
                         </div>
 
-                        <div class="grid-item" onclick="window.location.href='experience.html'">
+                        <div class="grid-item" onclick="openModal('modal-exp3')">
                             <img src="images/robolectro.png" alt="Co-founder">
                             <div class="carousel-overlay">
                                 <h3>Co-founder & Mentor</h3>
                                 <p>Click to read more</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -361,49 +443,63 @@
                 <div class="inner">
                     <header class="major">
                         <h2>Projects</h2>
-                        <p>Swipe to see my technical work.</p>
+                        <p>All my technical work.</p>
                     </header>
                     
-                    <div class="carousel-container">
-                        <div class="carousel-item" onclick="window.location.href='projects.html'">
+                    <div class="projects-grid">
+                        
+                        <div class="grid-item" onclick="openModal('modal-proj1')">
                             <img src="images/robot arm.jpg" alt="Robot arm Project">
                             <div class="carousel-overlay">
-                                <h3>5 DoF Surgical Robot (In progress)</h3>
+                                <h3>5 DoF Surgical Robot</h3>
                             </div>
                         </div>
 
-                        <div class="carousel-item" onclick="window.location.href='projects.html'">
+                        <div class="grid-item" onclick="openModal('modal-proj2')">
                             <img src="images/ML_robot.jpg" alt="ML robot">
                             <div class="carousel-overlay">
                                 <h3>ML based rescue robot</h3>
                             </div>
                         </div>
 
-                        <div class="carousel-item" onclick="window.location.href='projects.html'">
-                            <img src="images/pic03.jpg" alt="Balacing robot">
+                        <div class="grid-item" onclick="openModal('modal-proj3')">
+                            <img src="images/Balancing_2.png" alt="Balancing robot">
                             <div class="carousel-overlay">
                                 <h3>2 wheeled balancing robot</h3>
                             </div>
                         </div>
 
-						<div class="carousel-item" onclick="window.location.href='projects.html'">
-                            <img src="images/ML_robot.jpg" alt="Venus">
+                        <div class="grid-item" onclick="openModal('modal-proj4')">
+                            <img src="images/Venus_1.jpg" alt="Venus">
                             <div class="carousel-overlay">
-                                <h3>Object Detection system for Venus rover</h3>
+                                <h3>Venus Rover Object Detection</h3>
                             </div>
                         </div>
 
-						<div class="carousel-item" onclick="window.location.href='projects.html'">
-                            <img src="images/ML_robot.jpg" alt="FESS">
+                        <div class="grid-item" onclick="openModal('modal-proj5')">
+                            <img src="images/Fess_1.png" alt="FESS">
                             <div class="carousel-overlay">
-                                <h3>Flywheel Energy Storage System (FESS)</h3>
+                                <h3>Flywheel Energy Storage System</h3>
                             </div>
                         </div>
 
-						<div class="carousel-item" onclick="window.location.href='projects.html'">
-                            <img src="images/ML_robot.jpg" alt="CNC">
+                        <div class="grid-item" onclick="openModal('modal-proj6')">
+                            <img src="images/Rangoli_1.jpeg" alt="CNC">
                             <div class="carousel-overlay">
-                                <h3>CNC drawing and rangoli machine</h3>
+                                <h3>CNC Drawing Machine</h3>
+                            </div>
+                        </div>
+
+                        <div class="grid-item" onclick="openModal('modal-proj7')">
+                            <img src="images/ebike1.jpeg" alt="Ebike">
+                            <div class="carousel-overlay">
+                                <h3>Custom E-Bike and Li-ion battery</h3>
+                            </div>
+                        </div>
+
+                        <div class="grid-item" onclick="openModal('modal-proj8')">
+                            <img src="images/acrylicLED2.jpg" alt="LED Light"> <div class="carousel-overlay">
+                                <h3>Decorative LED Light</h3>
                             </div>
                         </div>
 
@@ -415,24 +511,22 @@
                 <div class="inner">
                     <header class="major">
                         <h2>Achievements & Recognition</h2>
-                        <p>Awards and certificates.</p>
+                        <p>Will be updated soon!</p>
                     </header>
-                    <div class="flex-grid">
-                        <div class="grid-item" onclick="openModal('modal-ach1')">
-                            <img src="images/award.jpg" alt="Award Name">
-                            <div class="carousel-overlay">
-                                <h3>National Robotics Winner</h3>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </section>
 
             <footer id="footer">
                 <ul class="icons">
-                    <li><a href="https://linkedin.com/in/aarravanil" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-                    <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                    <li><a href="https://linkedin.com/in/aarravanil" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/Aarrav" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					<li>
+						<a href="mailto:aarravanil@gmail.com" class="icon solid fa-envelope">
+							<span class="label">Email</span>
+						</a>
+					</li>
+
                 </ul>
                 <ul class="copyright">
                     <li>&copy; Aarrav Anil</li>
@@ -493,18 +587,455 @@
             </div>
         </div>
 
-        <div id="modal-ach1" class="modal">
+        <div id="modal-exp1" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>National Robotics Competition</h2>
-                    <span class="close-btn" onclick="closeModal('modal-ach1')">&times;</span>
+                    <h2>Robotics Student Engineer - Tech United</h2>
+                    <span class="close-btn" onclick="closeModal('modal-exp1')">&times;</span>
                 </div>
-                <div class="modal-body">
-                    <p>Awarded 1st place among 50 teams for creating the fastest autonomous maze-solving robot.</p>
-                    <p style="margin-top:10px; color:#aaa;"><strong>Date:</strong> November 2024</p>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Role:</strong> Mechatronics development</p>
+                        <p>As a team member of the Tech United (RoboCup Soccer World champion for 8 years), I am working on humanoid robots, implementing control algorithms and improving mechatronic stability for the RoboCup competition.</p>
+                        <ul>
+                            <li>Currently developing a <strong> foot pressure sensor array for contact detection, mass distribution estimation and gait optimization of a humanoid robot.</strong></li>
+                            <li>Implementing <strong>fusion with IMU </strong>and encoders to help with <strong>odometry drift, real time localization and state estimation.</strong></li>
+                            <li>Developing a power supply for the Booster T1 humanoid robot involving <b>power electronics </b>and integration. </li>
+                        </ul>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-exp1">
+                            <div class="mySlides fade">
+                                <img src="images/Tech_united_power_supply.jpg"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Tech_united_sensor.jpg"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Tech_united_humanoid.jpg"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Tech_united_testing.jpg"> </div>
+
+                            <a class="prev" onclick="plusSlides(-1, 'slide-exp1')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-exp1')">&#10095;</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="modal-exp2" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Medical Device Product Developer</h2>
+                    <span class="close-btn" onclick="closeModal('modal-exp2')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p>Designed a Smart Spoon for Parkinson's Patients. This device utilizes active stabilization technology to counteract hand tremors.</p>
+                        <div class="modal-desc">
+                            <ul>
+                                <li>Led the end-to-end development of an affordable Smart Spoon. Developed the embedded control system using real time IMU sensor fusion to counteract Parkinson's tremors (2-7 Hz).</li>
+                                <li>Conducted clinical validation trials with medical professionals, analyzed patient data to optimize PID control parameters for better functionality.</li>
+                                <li>Impact & Awards:</li>
+                                <ul>
+                                    <li>Won 1st place against 75 global teams in the World Robot Olympiad Future Innovators category - Germany, 2022 </li>
+                                    <li>Article featured in The Guardian and The Times of India</li>
+                                    <li>Published a research paper in the Journal of Ecophysiology and Occupational Health</li>
+                                </ul>
+                            </ul>
+                            
+                            <div class="resource-grid">
+                                <a href="assets/documents/Smart Spoon_doc.pdf" target="_blank" class="resource-card">
+                                    <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <div class="resource-info">
+                                        <span class="resource-title">Project Report</span>
+                                        <span class="resource-type">PDF Document</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.informaticsjournals.co.in/index.php/JEOH/article/view/49003" target="_blank" class="resource-card">
+                                    <div class="resource-icon"><i class="fa-solid fa-book-open"></i></div>
+                                    <div class="resource-info">
+                                        <span class="resource-title">Research Paper</span>
+                                        <span class="resource-type">Publication</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.theguardian.com/global-development/2023/oct/25/indian-schoolboy-invents-affordable-smart-spoon-for-trembling-hands" target="_blank" class="resource-card">
+                                    <div class="resource-icon"><i class="fa-brands fa-readme"></i></div>
+                                    <div class="resource-info">
+                                        <span class="resource-title">The Guardian</span>
+                                        <span class="resource-type">Feature Article</span>
+                                    </div>
+                                </a>
+                                <a href="https://timesofindia.indiatimes.com/city/bengaluru/bengaluru-teen-builds-smart-spoon-for-parkinsons-patients/articleshow/104328378.cms" target="_blank" class="resource-card">
+                                    <div class="resource-icon"><i class="fa-regular fa-newspaper"></i></div>
+                                    <div class="resource-info">
+                                        <span class="resource-title">Times of India</span>
+                                        <span class="resource-type">News Feature</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-exp2">
+                            <div class="mySlides fade">
+                                <img src="images/Spoon_Presenting.jpg"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Spoon_cad.png"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Smart spoon.jpg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Spoon_patient.png"> </div>
+                            <div class="mySlides fade">
+                                <img src="images/Spoon_On stage.jpg"> </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-exp2')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-exp2')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-exp3" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Co-founder & Technical Mentor</h2>
+                    <span class="close-btn" onclick="closeModal('modal-exp3')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Company:</strong> Robolectro STEAM Studio</p>
+                        <p>Co-founded an educational robotics startup to teach young students about STEM through hands-on workshops.</p>
+                        <ul>
+                            <li>Designed and developed technical curriculum for software logic and mechatronic design.</li>
+                            <li>Mentored 200+ students in hands on STEM related courses from foundational electronics to advanced competition robotics. Led competitive teams to international winnings (WRO, RoboCup).</li>
+                            <li>Coached students on strategy, algorithmic thinking and debugging under high pressure competition conditions</li>
+                        </ul>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-exp3">
+                            <div class="mySlides fade">
+                                <img src="images/Robolectro_ams.jpg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Robolectro_FLL.jpeg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Robolectro_village.jpg">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-exp3')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-exp3')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>5 DoF Surgical Robot</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj1')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p>Currently developing a 5 Degrees of Freedom robotic arm designed to learn about remote surgical assistance.</p>
+                        <p><strong>Tech Stack:</strong> ROS 2, Teensy, C++, Inverse kinematics, Additive manufacturing</p>
+                        <p>Implementing inverse kinematics and trajectory planning algorithms in ROS 2 to achieve precise motion control for a 5 DoF arm to understand more about surgical robots and precision systems.</p>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj1">
+                            <div class="mySlides fade">
+                                <img src="images/Arm_1.jpg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Arm_2.jpg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Arm_3.jpg">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj1')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj1')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj2" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>ML Based Rescue Robot</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj2')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> Python, Raspberry Pi, OpenCV, TensorFlow, Embedded systems, Rapid prototyping</p>
+                        <ul>
+                            <li>Developed an autonomous rescue robot using Raspberry Pi and Python to navigate disaster zones and identify survivors using computer vision.</li>
+                            <li>Implemented a self trained machine learning model with TensorFlow for real-time object detection and tracking.</li>
+                            <li>Designed and 3D printed custom chassis and components by following an iterative engineering design process.</li>
+                        </ul>
+                        <div class="resource-grid">
+                            <a href="https://youtu.be/hLySLQkBHr8?si=ToVeGtOXd5fVStbx" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="resource-info"><span class="resource-title">Watch the full video</span><span class="resource-type">YouTube</span></div>
+                            </a>
+                            <a href="assets/documents/ML_doc.pdf" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="resource-info"><span class="resource-title">Project Report</span><span class="resource-type">PDF</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj2">
+                            <div class="mySlides fade">
+                                <img src="images/ML_1.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/ML_2.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/ML_3.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/ML_4.png">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj2')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj2')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj3" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>2 Wheeled Balancing Robot</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj3')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> Simulink, Control Systems, Embedded software</p>
+                        <ul>
+                            <li>Developed a digital twin in Simulink to model system dynamics and tune parameters before physical testing.</li>
+                            <li>Implemented a sensor fusion algorithm to process real world sensor data from the IMU.</li>
+                            <li>Built a wireless PID tuner allowing live tuning of Kp, Ki, and Kd values.</li>
+                            <li>Achieved stable equilibrium with a deviation of <5 degrees under external disturbances.</li>
+                        </ul>
+                        <div class="resource-grid">
+                            <a href="https://youtu.be/MRCPmUmXnyo?si=e8CmuN4pFapS3TEU" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="resource-info"><span class="resource-title">Watch full video</span><span class="resource-type">YouTube</span></div>
+                            </a>
+                            <a href="/assets/documents/Balancing robot_doc.pdf" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="resource-info"><span class="resource-title">Project Report</span><span class="resource-type">PDF</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj3">
+                            <div class="mySlides fade">
+                                <img src="images/Balancing_1.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Balancing_3.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Balancing_4.png">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj3')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj3')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj4" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Venus Rover Object Detection</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj4')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> C, YOLO, Raspberry Pi, Communication protocols</p>
+                        <ul>
+                            <li>Developed an autonomous rescue robot using Raspberry Pi and Python to navigate disaster zones and identify survivors using computer vision.</li>
+                            <li>Implemented a self trained machine learning model with TensorFlow for real-time object detection and tracking.</li>
+                            <li>Designed and 3D printed custom chassis and components by following an iterative engineering design process.</li>
+                        </ul>
+                        <div class="resource-grid">
+                            <a href="/assets/documents/Individual_report___Venus_CBL-2.pdf" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="resource-info"><span class="resource-title">Project Report</span><span class="resource-type">PDF</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj4">
+                            <div class="mySlides fade">
+                                <img src="images/Venus_2.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Venus_3.jpg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Venus_4.png">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj4')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj4')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj5" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Flywheel Energy Storage System (FESS)</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj5')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> SolidWorks, Power electronics, Mechatronics assembly</p>
+                        <ul>
+                            <li>Designed and built a flywheel energy storage system to capture and recover kinetic energy, simulating regenerative braking.</li>
+                            <li>Modeled the flywheel assembly in SolidWorks and calculated moment of inertia to optimize rotational energy storage.</li>
+                            <li>Developed a PWM motor controller using a 555 timer to drive the flywheel up to ~2300 RPM.</li>
+                            <li>Enabled bidirectional motor generator operation using a DPDT switch to recover energy and power an LED array.</li>
+                            <li>Performed experimental testing to measure RPM, energy transfer, and efficiency, identifying losses due to friction and electrical conversion.</li>
+
+                        </ul>
+                        <div class="resource-grid">
+                            <a href="https://youtu.be/5uH4j3wEwcg?si=MuI46E25ftQIKZgc" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="resource-info"><span class="resource-title">Watch full video</span><span class="resource-type">YouTube</span></div>
+                            </a>
+                            <a href="/assets/documents/FESS_doc.pdf" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="resource-info"><span class="resource-title">Project Report</span><span class="resource-type">PDF</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj5">
+                            <div class="mySlides fade">
+                                <img src="images/Fess2.png">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Fess3.png">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj5')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj5')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj6" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>CNC Drawing and Rangoli Machine</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj6')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> GRBL, Actuators, Mechatronics assembly</p>
+                        <ul>
+                            <li>Designed and built a CNC-based drawing and rangoli machine, modeling the full system in SolidWorks and fabricating custom 3D printed parts.</li>
+                            <li>Integrated stepper motors, belt driven motion stages and GRBL firmware to generate and execute G-code toolpaths from image inputs.</li>
+                            <li>Extended the project by mentoring an FLL team to develop a rangoli drawing robot, showcased at an FLL Aachen, Germany, international competition.</li>
+
+                        </ul>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj6">
+                            <div class="mySlides fade">
+                                <img src="images/Rangoli_1.jpeg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/Rangoli_2.jpeg">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj6')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj6')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj7" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Ebike and custom Li-ion Battery pack</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj7')">&times;</span>
+                </div>
+                <div class="modal-body modal-split">
+                    <div class="modal-split-text">
+                        <p><strong>Tech Stack:</strong> Power electronics, Lithium batteries, power management and conversion</p>
+                        <ul>
+                           <li>Designed and built a custom 250 W electric bicycle with a DC geared motor and analog throttle based speed control.</li>
+                            <li>Assembled a 6s5p 18650 Li-ion battery pack and developed a DIY Arduino controlled spot welder (using a 12V lead acid battery) for high current cell welding.</li>
+                            <li>Debugged high-current power electronics and BMS failures, improving wiring, switching and thermal reliability through iterative testing.</li>
+                        </ul>
+
+                            <div class="resource-grid">
+                            <a href="https://www.youtube.com/watch?v=8kax2sEH0wU" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="resource-info"><span class="resource-title">Watch full video</span><span class="resource-type">YouTube</span></div>
+                            </a>
+                    
+                        </div>
+                    </div>
+                    <div class="modal-split-img">
+                        <div class="slideshow-container" id="slide-proj7">
+                            <div class="mySlides fade">
+                                <img src="images/ebike1.jpeg">
+                            </div>
+                            <div class="mySlides fade">
+                                <img src="images/ebike2.jpg">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1, 'slide-proj7')">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1, 'slide-proj7')">&#10095;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-proj8" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Decorative LED light</h2>
+                    <span class="close-btn" onclick="closeModal('modal-proj8')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-text"> 
+                        <p><strong>Tech Stack:</strong> CNC engraver, Inkscape, Vector images, GRBL</p>
+                        <ul>
+                            <li>Modified a 3D printer into an acrylic engraver with a high speed spindle.</li>
+                            <li>Converted images into vector profiles and engraved them onto acrylic</li>
+                            <li>Assembled LED strip lighting inside the acrylic panel and enclosure to create a vibrant, illuminated decorative display.</li>
+
+                        </ul>
+                        <div class="resource-grid">
+                            <a href="https://youtu.be/_CZezA6oDhg?si=4EQL-06DBT6zTHDy" target="_blank" class="resource-card">
+                                <div class="resource-icon"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="resource-info"><span class="resource-title">Watch full video</span><span class="resource-type">YouTube</span></div>
+                            </a>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.scrollex.min.js"></script>
@@ -565,6 +1096,44 @@
                 if (event.target.classList.contains('modal')) {
                     event.target.style.display = "none";
                 }
+            }
+
+            // --- SLIDESHOW LOGIC ---
+            let slideIndices = {}; // Track index for each slideshow
+            let slideTimers = {};  // Track timers for auto-slides
+
+            // Initialize all slideshows found on the page
+            document.querySelectorAll('.slideshow-container').forEach(container => {
+                let id = container.id;
+                slideIndices[id] = 1;
+                showSlides(1, id);
+                
+                // Start auto slide
+                slideTimers[id] = setInterval(() => {
+                    plusSlides(1, id);
+                }, 4000); // 4 seconds
+            });
+
+            function plusSlides(n, id) {
+                // Reset timer on manual interaction
+                clearInterval(slideTimers[id]);
+                slideTimers[id] = setInterval(() => { plusSlides(1, id); }, 4000);
+                
+                showSlides(slideIndices[id] += n, id);
+            }
+
+            function showSlides(n, id) {
+                let i;
+                let container = document.getElementById(id);
+                let slides = container.getElementsByClassName("mySlides");
+                
+                if (n > slides.length) {slideIndices[id] = 1}    
+                if (n < 1) {slideIndices[id] = slides.length}
+                
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";  
+                }
+                slides[slideIndices[id]-1].style.display = "block";  
             }
         </script>
 
